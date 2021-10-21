@@ -1,24 +1,21 @@
 public class BDay {
 	private int roomFolks; // people count in room
-
-	public BDay(int people) {
+	private int target;
+	public BDay(int people, int inittarget) {
 		roomFolks = people;
+		target = inittarget;
 	}
 
 	public boolean runTest() {
-		boolean[] days = new boolean[365]; // boolean scoreboard
-		// initially set all days to false
-		for (int d = 0; d < 365; d++) {
-			days[d] = false;
-		}
+		int[] days = new int[30]; // boolean scoreboard
 		int ranDay;
 		for (int p = 0; p < roomFolks; p++) {
 			ranDay = genDay(); // generate a random day
-			// if ranDay location already true, then there's a match
-			if (days[ranDay] == true) {
+			days[ranDay]++;	
+		}
+		for(int value : days) {
+			if(value >= target) {
 				return true;
-			} else {
-				days[ranDay] = true;
 			}
 		}
 		return false;
@@ -26,6 +23,6 @@ public class BDay {
 
 	private int genDay() {
 		// no leap year - just gen a random day 0-364
-		return ((int) (365 * Math.random()));
+		return ((int) (30 * Math.random()));
 	}
 }
